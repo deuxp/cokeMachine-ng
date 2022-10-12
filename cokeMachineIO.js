@@ -4,6 +4,7 @@ var util = require('util');
 var fs = require('fs');
 var kbc = require('linux-keyboard-catcher');
 
+//TODO: @param {config.herokuUrl: any} is not read. function: site3Card defines only 2 params & 3 are passed.
 var site3Card = require("./site3Card")(config.stripeKey,
 	config.herokuKey,
 	config.herokuUrl);
@@ -75,6 +76,7 @@ function processInput(cardString)
 	// if successful: move towards dispensing (attemptDispensing)
 	// if fail: back out to the main loop
 	site3Card.preAuth(cardString,
+    // on success
 		function (charge) {
 			console.log("Auth success: " + cardString);
 			chargeInProgress = charge;
@@ -82,6 +84,7 @@ function processInput(cardString)
 			// try dispense
 			attemptDispensing(charge);
 		} ,
+    // on fail
 		function (string, charge, err) {
 			console.log(" RFID err!");
 			play(config.swipeFailSoundFile);
@@ -94,6 +97,7 @@ function processInput(cardString)
 // need to clean up the io before exit
 // otherwise gpio may not be available to
 // other users
+// TODO: this function is never called
 function exit()
 {
 	cokeIO.exit();
@@ -172,5 +176,5 @@ function processKeystroke(keyEvent) {
 			currentCardData = "";
 		},
 		config.maxDelayBetweenInputBytes);
-
 }
+//TODO: need to see the shape of currentCardData. 

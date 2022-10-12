@@ -49,6 +49,7 @@ function parseCard(string)
 	return card;
 }
 
+// @param success and fail are callbacks
 function preAuth(string, success, fail)
 {
 	if (string.length < 4)
@@ -61,6 +62,7 @@ function preAuth(string, success, fail)
 		return;
 	}
 
+  // TODO: "out" is defined but never called
 	var out = this.stripe.charges.create({
 		amount: 500,
 		currency: "cad",
@@ -77,7 +79,7 @@ function preAuth(string, success, fail)
 		else
 		{
 			//console.log("charge: %j error: %j", charge, err);
-			fail("chargeError", charge, err);
+			fail(string = "chargeError", charge, err);
 			// done here
 		}
 	});
