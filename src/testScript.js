@@ -1,6 +1,6 @@
 const play = require("./audio")().play;
 const config = require("../config");
-// const util = require("util");
+const util = require("util");
 
 /*
 console.log("config:" + util.format("%s %s %s %s %s", "output: ", config.test("ga "),
